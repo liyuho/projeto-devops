@@ -27,6 +27,12 @@ function App() {
     setTarefas(novasTarefas);
   }
 
+  function excluirTarefa(index) {
+    const novasTarefas = tarefas.filter((_, i) => i !== index);
+
+    setTarefas(novasTarefas);
+  }
+
   return (
     <div className="app">
       <h1>Minha Lista de Tarefas</h1>
@@ -46,15 +52,22 @@ function App() {
 
       <ul>
         {tarefas.map((item, index) => (
-          <li
-            key={index}
-            onClick={() => concluirTarefa(index)}
-            style={{
-              textDecoration: item.concluida ? 'line-through' : 'none',
-              cursor: 'pointer'
-            }}
-          >
-            {item.texto}
+          <li key={index}>
+            <span
+              onClick={() => concluirTarefa(index)}
+              style={{
+                textDecoration: item.concluida
+                  ? 'line-through'
+                  : 'none',
+                cursor: 'pointer'
+              }}
+            >
+              {item.texto}
+            </span>
+
+            <button onClick={() => excluirTarefa(index)}>
+              Excluir
+            </button>
           </li>
         ))}
       </ul>
