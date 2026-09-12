@@ -10,8 +10,21 @@ function App() {
       return;
     }
 
-    setTarefas([...tarefas, tarefa]);
+    const novaTarefa = {
+      texto: tarefa,
+      concluida: false
+    };
+
+    setTarefas([...tarefas, novaTarefa]);
     setTarefa('');
+  }
+
+  function concluirTarefa(index) {
+    const novasTarefas = [...tarefas];
+
+    novasTarefas[index].concluida = !novasTarefas[index].concluida;
+
+    setTarefas(novasTarefas);
   }
 
   return (
@@ -33,7 +46,16 @@ function App() {
 
       <ul>
         {tarefas.map((item, index) => (
-          <li key={index}>{item}</li>
+          <li
+            key={index}
+            onClick={() => concluirTarefa(index)}
+            style={{
+              textDecoration: item.concluida ? 'line-through' : 'none',
+              cursor: 'pointer'
+            }}
+          >
+            {item.texto}
+          </li>
         ))}
       </ul>
     </div>
